@@ -1,0 +1,62 @@
+body {
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.sidebar-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    padding: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-menu li:hover {
+    background-color: #55555538;
+    font-size: 1.1em;
+}
+
+.sidebar-menu li.active {
+    background-color: #555;
+    font-weight: bold;
+}
+
+.content {
+    padding: 20px;
+    float: left;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.task:hover {
+    background-color: #f0f0f0;
+}
