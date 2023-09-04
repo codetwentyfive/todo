@@ -1,85 +1,69 @@
 body {
-    font-family: 'Times New Roman', Times, serif, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: "Times New Roman", Times, serif, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    float: left;
+  width: 250px;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  float: left;
 }
 
 .sidebar-header {
-    font-size: 24px;
-    margin-bottom: 20px;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .sidebar-menu {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .sidebar-menu li {
-    padding: 10px 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .sidebar-menu li:hover {
-    background-color: #55555538;
-    font-size: 1.1em;
+  background-color: #55555538;
+  font-size: 1.1em;
 }
 
 .sidebar-menu li.active {
-    background-color: #555;
-    font-weight: bold;
+  background-color: #555;
+  font-weight: bold;
 }
 
-.content {
-    padding: 20px;
-    float: left;
+/* Center the task form */
+#taskForm {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 3; /* Ensure it appears above the overlay */
 }
 
-.task-list {
-    list-style: none;
-    padding: 0;
-}
-
-.task {
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-}
-
-.task:hover {
-    background-color: #f0f0f0;
-}
-
+.hidden {
+  display: none;}
 
 /* Style custom checkboxes */
 .task input[type="checkbox"] + label::before {
-    content: '\2714'; /* Unicode checkmark symbol */
-    display: inline-block;
-    font-size: 18px;
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 3px;
-    cursor: pointer;
+  content: "\2714"; /* Unicode checkmark symbol */
+  display: inline-block;
+  font-size: 18px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-/* Add styles for checked custom checkboxes */
-.task input[type="checkbox"]:checked + label::before {
-    background-color: #4CAF50; /* Green color when checked */
-    color: #fff; /* White checkmark when checked */
-}
