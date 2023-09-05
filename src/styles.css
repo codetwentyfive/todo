@@ -1,17 +1,43 @@
-body {
-  font-family: "Times New Roman", Times, serif, sans-serif;
+@font-face {
+  font-family: 'Antipasto Pro ExtraBold';
+  src:url('/dist/fonts/antipasto.extrabold.ttf' ) format('.ttf');
+  font-family: 'Antipasto';
+  src:url('/dist/fonts/antipasto.regular.ttf') format('.ttf');
+}
+
+* {
   margin: 0;
   padding: 0;
+  
+}
+
+header {
+  font-family: 'Antipasto Pro ExtraBold', sans-serif ;
+  background-color: #db8763;
+  color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+
+}
+body {
+  font-family: 'Antipasto', serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color:  #db8763b9;
 }
 
 .sidebar {
   width: 250px;
   height: 100vh;
-  background-color: #333;
+  background-color: #db8763;
   color: white;
   padding: 20px;
   box-sizing: border-box;
   float: left;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+
 }
 
 .sidebar-header {
@@ -28,27 +54,43 @@ body {
   padding: 10px 0;
   cursor: pointer;
   transition: background-color 0.3s;
+  border-radius: 10px;
+  padding: 0.8em;
 }
 
 .sidebar-menu li:hover {
-  background-color: #55555538;
-  font-size: 1.1em;
+  background-color: #eeb46281;
+  transform: scale(1.05); /* Slight scale-up on hover */
+  border:1px solid #eeb462;
+
+  
+
 }
 
 .sidebar-menu li.active {
-  background-color: #555;
+  background-color: #eeb462;
   font-weight: bold;
+  transform: scale(0.95); /* Slight scale-down on active state */
+
 }
-
-
 #modal{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width:auto;
-  background-color: #555;
+  background-color:  #ce7674;
   padding: 1rem;
+  border-radius: 20px;
+}
+
+.center-content {
+  margin-left: 1em;
+  background-color: #eeb462f8;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  padding-top: 1em;
   border-radius: 20px;
 }
 
@@ -57,7 +99,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 #taskFormElement {
@@ -72,13 +113,14 @@ body {
   display: none;
 }
 
-.task-item {
+.task {
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px 10px;
+  border-radius: 20px;
 }
 
 .task-checkbox {
@@ -93,8 +135,8 @@ body {
 }
 
 /* CSS for the hover effect on the task item */
-.task-item:hover {
-  background-color: #f0f0f0; /* Change the background color on hover */
+.task:hover {
+  background-color: #eeb46265; /* Change the background color on hover */
   cursor: pointer; /* Change the cursor to a pointer on hover */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
 }
@@ -107,8 +149,63 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
+  transform: rotate(180deg);
+}
+/* Default styles */
+button.remove-task-button {
+  width: 2em;
+  height: 2em;
+  background-color: #3498db;
+  color: #fff;
+  text-align: center;
+  border-radius: 50px;
+  transition: transform 0.3s ease; /* Add a smooth transition for the spin effect */
+}
+
+/* Hover effect */
+button.remove-task-button:hover {
+  animation: spin 0.8s ease ; /* Apply the spin animation on hover */
+}
+
+/* Keyframes animation for spinning */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
 
 .task-item button.remove-task-button:hover {
-  background-color: #ff0000;
+  background-color: #544667;
+  transform: rotate(180deg);
+
+}
+
+#newTaskButton {
+  background-color: #ce7674; /* Background color */
+  color: #fff; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+  margin-left: 1em;
+  
+
+  /* Add a subtle shadow for depth */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Style on hover */
+#newTaskButton:hover {
+  background-color: #544667; /* Darker background color on hover */
+  transform: scale(1.05); /* Slight scale-up on hover */
+}
+
+/* Style for active (clicked) state */
+#newTaskButton:active {
+  transform: scale(0.95); /* Slight scale-down on active state */
 }
