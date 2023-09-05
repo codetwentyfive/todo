@@ -1,5 +1,5 @@
 import './styles.css';
-import './style.js';
+import { updateTaskTitleStyle, activeSwitcher, toggleCheckboxOnClick } from './style.js';
 
 
 // DOM elements
@@ -35,6 +35,7 @@ taskFormElement.addEventListener("submit", (e) => {
         dueDate,
         priority,
         description,
+        completed:false,
     };
     
     // Save the task to localStorage
@@ -69,9 +70,17 @@ document.addEventListener("click", (e) => {
 function saveTask(task) {
     // Get existing tasks from localStorage (if any)
     const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    
-    // Add the new task to the existing tasks
-    existingTasks.push(task);
+
+    // Find the index of the task with the same title
+    const taskIndex = existingTasks.findIndex((existingTask) => existingTask.title === task.title);
+
+    if (taskIndex !== -1) {
+        // Update the task if it exists
+        existingTasks[taskIndex] = task;
+    } else {
+        // Add the new task to the existing tasks
+        existingTasks.push(task);
+    }
 
     // Save the updated tasks back to localStorage
     localStorage.setItem("tasks", JSON.stringify(existingTasks));
@@ -98,35 +107,58 @@ function addTaskToTaskList(task) {
     // Create a new task item
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
+
+    // Use a label element to wrap the entire task item content
     taskItem.innerHTML = `
-    <input type="checkbox" class="task-checkbox">
-    <h3>${task.title}</h3>
-    <p>Due Date: ${task.dueDate}</p>
-    <p>Priority: ${task.priority}</p>
-    <p>Description: ${task.description}</p>
-    <button class="remove-task-button">Remove</button> <!-- Add a Remove button -->
+    <label class="task">
+        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+        <h3>${task.title}</h3>
+        <p>Due Date: ${task.dueDate}</p>
+        <p>Priority: ${task.priority}</p>
+        <p>Description: ${task.description}</p>
+        <button class="remove-task-button">❌</button>
+    </label>
     `;
-    
+
     // Add the task item to the task list
     taskList.appendChild(taskItem);
-    
+
     // Add a click event listener to the Remove button
     const removeButton = taskItem.querySelector(".remove-task-button");
     removeButton.addEventListener("click", () => {
         removeTask(taskItem);
     });
+
+    // Add a change event listener to the checkbox
+    const checkbox = taskItem.querySelector(".task-checkbox");
+    checkbox.addEventListener("change", () => {
+        task.completed = checkbox.checked;
+        saveTask(task); // Update the task status in localStorage
+        updateTaskTitleStyle(taskItem, checkbox.checked);
+    });
+
+    // Update the task title style based on the initial checkbox state
+    updateTaskTitleStyle(taskItem, task.completed);
 }
+
 
 
 
 // Function to load tasks from localStorage and display them
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    
+
     // Loop through the tasks and add them to the task list
     tasks.forEach((task) => {
         addTaskToTaskList(task);
+        const taskItem = taskList.lastChild; // Get the reference to the added task item
+
+        // Set the checked attribute of the checkbox based on the task's completed status
+        const checkbox = taskItem.querySelector(".task-checkbox");
+        checkbox.checked = task.completed;
     });
 }
+
+activeSwitcher();
 // Load tasks when the page loads
 window.addEventListener("load", loadTasks);

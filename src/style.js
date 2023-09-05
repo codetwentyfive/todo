@@ -1,6 +1,7 @@
 import './index.js';
+
 //Function that toogles the active selection
-function activeSwitcher() {
+export function activeSwitcher() {
     const activeSwitch = document.querySelectorAll(".activeSwitch");
 
     activeSwitch.forEach(item => {
@@ -17,7 +18,7 @@ function activeSwitcher() {
 }
 
 // Function to update the task title with strikethrough
-function updateTaskTitleStyle(taskItem, isChecked) {
+export function updateTaskTitleStyle(taskItem, isChecked) {
     const titleElement = taskItem.querySelector("h3");
     if (isChecked) {
         titleElement.style.textDecoration = "line-through";
@@ -27,23 +28,31 @@ function updateTaskTitleStyle(taskItem, isChecked) {
 }
 
 // Function to toggle the checkbox when clicking inside a task item
-function toggleCheckboxOnClick(taskItem) {
+export function toggleCheckboxOnClick(taskItem) {
     const checkbox = taskItem.querySelector(".task-checkbox");
     if (checkbox) {
         checkbox.checked = !checkbox.checked;
+        
+        // Get the task title from the task item
+        const taskTitle = taskItem.querySelector("h3").textContent;
+        
+        // Find the corresponding task in local storage and update its completed status
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const updatedTasks = tasks.map((task) => {
+            if (task.title === taskTitle) {
+                task.completed = checkbox.checked;
+            }
+            return task;
+        });
+        
+        // Save the updated tasks back to localStorage
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+        
         // Call the updateTaskTitleStyle function to update the title style based on the checkbox state
         updateTaskTitleStyle(taskItem, checkbox.checked);
     }
 }
 
-// Add a click event listener to each task item
-taskList.addEventListener("click", (e) => {
-    const taskItem = e.target.closest(".task-item");
-    if (taskItem) {
-        // Check if the click occurred inside a task item
-        toggleCheckboxOnClick(taskItem);
-    }
-});
 
 
 // Event listener to handle checkbox changes
@@ -59,4 +68,5 @@ taskList.addEventListener("change", (e) => {
 export const stylingFunctions = {
     activeSwitcher,
     updateTaskTitleStyle,
+    toggleCheckboxOnClick,
 };
