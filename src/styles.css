@@ -92,6 +92,13 @@ body {
   transition: text-decoration 0.2s;
 }
 
+/* CSS for the hover effect on the task item */
+.task-item:hover {
+  background-color: #f0f0f0; /* Change the background color on hover */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
+}
+
 .task-item button.remove-task-button {
   background-color: #ff5252;
   color: #fff;
