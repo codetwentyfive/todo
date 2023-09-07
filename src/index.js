@@ -1,3 +1,4 @@
+import'./dom.js';
 import './styles.css';
 import { updateTaskTitleStyle, activeSwitcher, toggleCheckboxOnClick } from './style.js';
 
