@@ -1,4 +1,6 @@
 import './index.js';
+import './dom.js';
+import { taskUnit } from './dom.js';
 
 //Function that toogles the active selection
 export function activeSwitcher() {
@@ -22,8 +24,11 @@ export function updateTaskTitleStyle(taskItem, isChecked) {
     const titleElement = taskItem.querySelector("h3");
     if (isChecked) {
         titleElement.style.textDecoration = "line-through";
+        taskItem.style.backgroundColor = "#544667"
+
     } else {
         titleElement.style.textDecoration = "none";
+        taskItem.style.backgroundColor = "initial";
     }
 }
 
