@@ -128,17 +128,22 @@ main{
   display: none;
 }
 
-.task {
+.task  {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap:1em;
+
+}
+ .task-item{
+  align-items: center;
+  border-radius: 20px;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px 10px;
   border-radius: 20px;
   gap:1em;
-
-}
-
+ }
 
 .task-item h3 {
   flex-grow: 1;
@@ -157,13 +162,13 @@ p{
 }
 
 .info-icon {
-  width: 20px; /* Adjust to your preferred size */
-  height: 20px; /* Adjust to your preferred size */
+  width: 30px; /* Adjust to your preferred size */
+  height: 30px; /* Adjust to your preferred size */
 }
 
 
 /* CSS for the hover effect on the task item */
-.task:hover {
+.task-item:hover {
   background-color:#ce7674; /* Change the background color on hover */
   cursor: pointer; /* Change the cursor to a pointer on hover */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
@@ -173,6 +178,7 @@ p{
   background-color: #ccc;
   color: #fff;
   border: none;
+
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -191,8 +197,8 @@ button.remove-task-button {
 
 /* Hover effect */
 button.remove-task-button:hover {
-  background-color: #544667;
   animation: spin 0.8s ease ; /* Apply the spin animation on hover */
+  border: 2px solid red;
 }
 
 /* Keyframes animation for spinning */
