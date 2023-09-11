@@ -12,9 +12,12 @@
 }
 
 header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
   font-family: 'Raleway', sans-serif;
   background-color: #db8763;
-  color: #f0f0f0;
+  color: #000000;
   padding: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
@@ -22,9 +25,13 @@ header {
   margin-bottom: 1em;
   margin-right: 4em;
   margin-left: 4em;
-  
-
 }
+
+.header-icon{
+height: 4em;
+width: auto;
+}
+
 body {
   font-family: 'Raleway', sans-serif;
   margin: 0;
@@ -37,7 +44,7 @@ font-size: large;
   width: 250px;
   height: 100vh;
   background-color: #db8763;
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 20px;
   margin-left: 1em;
   margin-right: 2em;
@@ -217,7 +224,7 @@ button.remove-task-button:hover {
 
 #newTaskButton {
   background-color: #ce7674; /* Background color */
-  color: #fff; /* Text color */
+  color: #000000; /* Text color */
   padding: 10px 20px; /* Padding */
   border: none; /* Remove border */
   border-radius: 5px; /* Rounded corners */
