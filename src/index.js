@@ -2,96 +2,23 @@ import './dom.js';
 import './styles.css';
 import { updateTaskTitleStyle, activeSwitcher, toggleCheckboxOnClick } from './style.js';
 
-// Define your data structure for projects and tasks at the global scope
-const data = {
-    projects: [
-        {
-            id: generateUniqueId(),
-            name: 'Default Project',
-            tasks: [],
-        },
-    ],
-    currentProjectId: null, // To track the currently selected project
-};
-
-// Function to add a new project
-function addProject(data, name) {
-    const newProject = {
-        id: generateUniqueId(),
-        name,
-        tasks: [],
-    };
-    data.projects.push(newProject);
-    saveDataToLocalStorage();
-    return newProject;
-}
-
-// Function to set the currently selected project
-function setCurrentProject(projectId) {
-    data.currentProjectId = projectId;
-    saveDataToLocalStorage();
-}
-
-// Function to remove a project and its tasks
-function removeProject(projectId) {
-    const projectIndex = data.projects.findIndex((project) => project.id === projectId);
-    if (projectIndex !== -1) {
-        data.projects.splice(projectIndex, 1);
-        // If the currently selected project is removed, reset the selection
-        if (data.currentProjectId === projectId) {
-            data.currentProjectId = null;
-        }
-        saveDataToLocalStorage();
-    }
-}
-
-// Function to add a new task to the current project
-function addTaskToCurrentProject(task) {
-    if (data.currentProjectId) {
-        const project = data.projects.find((proj) => proj.id === data.currentProjectId);
-        if (project) {
-            project.tasks.push(task);
-            saveDataToLocalStorage();
-        }
-    }
-}
-
-// Function to remove a task from the current project
-function removeTaskFromCurrentProject(taskId) {
-    if (data.currentProjectId) {
-        const project = data.projects.find((proj) => proj.id === data.currentProjectId);
-        if (project) {
-            const taskIndex = project.tasks.findIndex((task) => task.id === taskId);
-            if (taskIndex !== -1) {
-                project.tasks.splice(taskIndex, 1);
-                saveDataToLocalStorage();
-            }
-        }
-    }
-}
-
-// Function to generate a unique ID (You'll need to implement this)
-function generateUniqueId() {
-    // Implement a unique ID generation logic (e.g., UUID)
-    // Example: return 'task_' + Math.random().toString(36).substr(2, 9);
-}
-
-// Function to save data to local storage
-function saveDataToLocalStorage() {
-    localStorage.setItem("taskManagerData", JSON.stringify(data));
-}
-
-// Function to load data from local storage
-function loadDataFromLocalStorage() {
-    const savedData = JSON.parse(localStorage.getItem("taskManagerData"));
-    if (savedData) {
-        data.projects = savedData.projects || [];
-        data.currentProjectId = savedData.currentProjectId || null;
-    }
-}
-
-// Load data from local storage when the page loads
-loadDataFromLocalStorage();
+// preloaded tasks
+const preloadedTasks = [
+    {
+        title: "Relax and code",
+        dueDate: "2023-12-31",
+        priority: "medium",
+        description: "This is the first preloaded task.",
+        completed: false,
+    },
+    {
+        title: "Practice graditude",
+        dueDate: "2023-11-15",
+        priority: "high",
+        description: "This is the second preloaded task.",
+        completed: true,
+    },
+];
 
 // Event listener for the "+ New Task" button
 newTaskButton.addEventListener("click", (e) => {
@@ -101,15 +28,6 @@ newTaskButton.addEventListener("click", (e) => {
     // Toggle the visibility of the task form and modal
     taskForm.classList.toggle("hidden");
     modal.classList.toggle("hidden");
-});
-
-// Event listener for the project button
-projectButton.addEventListener("click", () => {
-    const projectName = prompt("Enter the name of the new project:");
-    if (projectName) {
-        const newProject = addProject(data, projectName);
-        // You can do something with the new project here
-    }
 });
 
 // Event listener for the task form submission
@@ -144,7 +62,6 @@ taskFormElement.addEventListener("submit", (e) => {
     taskForm.classList.add("hidden");
     modal.classList.add("hidden");
 });
-
 
 function closeModalOnClickOutside(event, modal, taskForm) {
     // Check if the modal is open and the click occurred outside of it
@@ -237,18 +154,27 @@ function addTaskToTaskList(task) {
 
 // Function to load tasks from localStorage and display them
 function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    
-    // Loop through the tasks and add them to the task list
-    tasks.forEach((task) => {
-        addTaskToTaskList(task);
-        const taskItem = taskList.lastChild; // Get the reference to the added task item
-        
-        // Set the checked attribute of the checkbox based on the task's completed status
-        const checkbox = taskItem.querySelector(".task-checkbox");
-        checkbox.checked = task.completed;
+    // Get user-added tasks from localStorage (if any)
+    const userTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Check if the preloaded tasks have already been loaded
+    let preloadedTasksLoaded = false;
+
+    // Loop through all tasks and add them to the task list
+    userTasks.forEach((task) => {
+        // Check if the task is a preloaded task
+        const isPreloadedTask = preloadedTasks.some((preloadedTask) => preloadedTask.title === task.title);
+
+        if (isPreloadedTask && !preloadedTasksLoaded) {
+            // Skip adding the preloaded tasks if they have already been loaded
+            preloadedTasksLoaded = true;
+        } else {
+            addTaskToTaskList(task);
+        }
     });
 }
+
+
 
 activeSwitcher();
 // Load tasks when the page loads
